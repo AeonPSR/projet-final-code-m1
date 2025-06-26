@@ -3,7 +3,7 @@
 	  <h1>Dashboard</h1>
 	  <ul>
 		<li v-for="project in projects" :key="project._id">
-		  {{ project.title }}
+		  <router-link :to="`/project/${project._id}`">{{ project.title }}</router-link>
 		</li>
 	  </ul>
 	</div>

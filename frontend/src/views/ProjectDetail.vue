@@ -5,7 +5,7 @@
   
 	  <h3>Tasks</h3>
 	  <ul>
-		<li v-for="task in project.tasks" :key="task._id">
+		<li v-for="task in tasks" :key="task._id">
 		  <strong>{{ task.title }}</strong> — {{ task.status }}
 		</li>
 	  </ul>
@@ -18,12 +18,14 @@
   import { fetchProjectById } from '../services/api';
   
   const project = ref(null);
+  const tasks = ref([]);
   const route = useRoute();
   
   onMounted(async () => {
 	const token = localStorage.getItem('token');
 	const res = await fetchProjectById(route.params.id, token);
 	project.value = res.project;
+	tasks.value = res.tasks;
   });
   </script>
   

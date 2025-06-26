@@ -1,4 +1,5 @@
 const Project = require('../models/Project');
+const Task = require('../models/Task');
 
 const createProject = async (req, res) => {
   try {
@@ -21,12 +22,17 @@ const getProjects = async (req, res) => {
 };
 
 const getProject = async (req, res) => {
-  const project = await Project.findById(req.params.id);
-  if (!project || (project.owner.toString() !== req.userId && !project.collaborators.includes(req.userId))) {
-    return res.status(403).json({ error: 'Access denied' });
-  }
-  res.json(project);
-};
+	try {
+	  const project = await Project.findById(req.params.id);
+	  if (!project) return res.status(404).json({ error: 'Project not found' });
+  
+	  const tasks = await Task.find({ project: project._id });
+	  res.json({ project, tasks });
+	} catch (err) {
+	  res.status(500).json({ error: 'Something went wrong' });
+	}
+  };
+  
 
 const updateProject = async (req, res) => {
   const project = await Project.findById(req.params.id);
