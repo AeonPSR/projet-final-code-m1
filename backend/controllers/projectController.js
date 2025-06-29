@@ -23,7 +23,9 @@ const getProjects = async (req, res) => {
 
 const getProject = async (req, res) => {
 	try {
-	  const project = await Project.findById(req.params.id);
+	  const project = await Project.findById(req.params.id)
+		.populate('collaborators', 'name email');
+  
 	  if (!project) return res.status(404).json({ error: 'Project not found' });
   
 	  const tasks = await Task.find({ project: project._id });
@@ -31,8 +33,7 @@ const getProject = async (req, res) => {
 	} catch (err) {
 	  res.status(500).json({ error: 'Something went wrong' });
 	}
-  };
-  
+};
 
 const updateProject = async (req, res) => {
   const project = await Project.findById(req.params.id);

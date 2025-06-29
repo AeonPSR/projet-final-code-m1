@@ -6,6 +6,8 @@ dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
 const projectRoutes = require('./routes/projectRoutes');
+const taskRoutes = require('./routes/taskRoutes');
+const collaboratorRoutes = require('./routes/collaboratorRoutes');
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api/collaborator', collaboratorRoutes);
 
 app.get('/', (req, res) => {
   res.send("TeamTrack API is running");

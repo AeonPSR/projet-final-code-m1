@@ -21,7 +21,6 @@ router.get('/', getProjects);
 router.get('/:id', getProject);
 router.put('/:id', updateProject);
 router.delete('/:id', deleteProject);
-
 //CRUD: 4 basic operations we can do on data:
 //Create
 //Read
